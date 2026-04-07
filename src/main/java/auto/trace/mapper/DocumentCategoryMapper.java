@@ -1,6 +1,6 @@
 package auto.trace.mapper;
 
-import auto.trace.dto.DocumentCategoryResponse;
+import auto.trace.dto.response.DocumentCategoryResponse;
 import auto.trace.entity.DocumentCategory;
 import org.mapstruct.Mapper;
 

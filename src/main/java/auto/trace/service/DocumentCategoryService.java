@@ -1,6 +1,6 @@
 package auto.trace.service;
 
-import auto.trace.dto.DocumentCategoryResponse;
+import auto.trace.dto.response.DocumentCategoryResponse;
 import auto.trace.mapper.DocumentCategoryMapper;
 import auto.trace.repository.DocumentCategoryRepository;
 import org.springframework.stereotype.Service;

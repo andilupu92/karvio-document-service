@@ -1,6 +1,6 @@
 package auto.trace.controller;
 
-import auto.trace.dto.DocumentCategoryResponse;
+import auto.trace.dto.response.DocumentCategoryResponse;
 import auto.trace.service.DocumentCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
