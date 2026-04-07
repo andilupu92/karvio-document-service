@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -15,6 +17,9 @@ public interface DocumentMapper {
 
     @Mapping(source = "documentCategory.id", target = "documentCategoryId")
     @Mapping(source = "documentCategory.name", target = "documentCategoryName")
+    @Mapping(source = "documentCategory.iconName", target = "documentCategoryIconName")
+    @Mapping(source = "documentCategory.iconLibrary", target = "documentCategoryIconLibrary")
+    @Mapping(target = "daysRemaining", expression = "java(calculateDaysRemaining(document.getExpiryDate()))")
     DocumentResponse toResponse(Document document);
 
     @InheritConfiguration(name = "toResponse")
@@ -22,4 +27,9 @@ public interface DocumentMapper {
 
     Document toEntity(DocumentRequest documentRequest);
     void updateEntityFromRequest(DocumentRequest documentRequest, @MappingTarget Document document);
+
+
+    default long calculateDaysRemaining(LocalDate expiryDate) {
+        return ChronoUnit.DAYS.between(LocalDate.now(), expiryDate);
+    }
 }

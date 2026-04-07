@@ -5,5 +5,8 @@ import java.time.LocalDate;
 public record DocumentResponse (Long id,
                                 Long documentCategoryId,
                                 String documentCategoryName,
-                                LocalDate expiryDate
+                                String documentCategoryIconName,
+                                String documentCategoryIconLibrary,
+                                LocalDate expiryDate,
+                                long daysRemaining
 ){ }
