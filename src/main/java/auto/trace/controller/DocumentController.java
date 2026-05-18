@@ -1,6 +1,7 @@
 package auto.trace.controller;
 
 import auto.trace.dto.request.DocumentRequest;
+import auto.trace.dto.response.DocumentListWrapper;
 import auto.trace.dto.response.DocumentResponse;
 import auto.trace.service.DocumentService;
 import jakarta.validation.Valid;
@@ -25,22 +26,33 @@ public class DocumentController {
         return new ResponseEntity<>(documentService.getDocumentsFromCar(carId), HttpStatus.OK);
     }
 
-    @PostMapping("/{carId}")
-    public ResponseEntity<DocumentResponse> add(@Valid @RequestBody DocumentRequest documentRequest,
-                                                @PathVariable Long carId) {
-        return new ResponseEntity<>(documentService.save(carId, documentRequest, null), HttpStatus.CREATED);
+    @GetMapping()
+    public ResponseEntity<DocumentListWrapper> getDocumentsFromUser(@RequestHeader("X-User-Id") Long userId) {
+        return new ResponseEntity<>(documentService.getDocumentsFromUser(userId), HttpStatus.OK);
     }
 
-    @PutMapping("/{carId}/{documentId}")
+    @PostMapping()
+    public ResponseEntity<DocumentResponse> add(@Valid @RequestBody DocumentRequest documentRequest,
+                                                @RequestHeader("X-User-Id") Long userId) {
+        return new ResponseEntity<>(documentService.save(userId, documentRequest, null), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{documentId}")
     public ResponseEntity<DocumentResponse> update(@Valid @RequestBody DocumentRequest documentRequest,
-                                                   @PathVariable Long carId,
+                                                   @RequestHeader("X-User-Id") Long userId,
                                                    @PathVariable Long documentId) {
-        return new ResponseEntity<>(documentService.save(carId,documentRequest,documentId), HttpStatus.OK);
+        return new ResponseEntity<>(documentService.save(userId, documentRequest, documentId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{documentId}")
     public ResponseEntity<Void> delete(@PathVariable Long documentId) {
         documentService.delete(documentId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/byCar/{carId}")
+    public ResponseEntity<Void> deleteAllDocumentsByCar(@PathVariable Long carId) {
+        documentService.deleteAllDocumentsByCar(carId);
         return ResponseEntity.noContent().build();
     }
 }

@@ -15,10 +15,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface DocumentMapper {
 
-    @Mapping(source = "documentCategory.id", target = "documentCategoryId")
-    @Mapping(source = "documentCategory.name", target = "documentCategoryName")
-    @Mapping(source = "documentCategory.iconName", target = "documentCategoryIconName")
-    @Mapping(source = "documentCategory.iconLibrary", target = "documentCategoryIconLibrary")
+    @Mapping(source = "documentType.id", target = "documentTypeId")
+    @Mapping(source = "documentType.name", target = "documentTypeName")
+    @Mapping(source = "documentType.iconName", target = "documentTypeIconName")
     @Mapping(target = "daysRemaining", expression = "java(calculateDaysRemaining(document.getExpiryDate()))")
     DocumentResponse toResponse(Document document);
 

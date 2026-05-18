@@ -1,7 +1,8 @@
 package auto.trace.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -9,10 +10,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="expense_categories")
-public class ExpenseCategory {
+@Table(name="document_type")
+public class DocumentType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +24,15 @@ public class ExpenseCategory {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
+    @Column(name = "category", nullable = false, length = 100)
+    private String category;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "expense_type_id")
+    private ExpenseType expenseType;
+
     @Column(name = "icon_name", nullable = false, length = 100)
     private String iconName;
-
-    @Column(name = "icon_library", nullable = false, length = 100)
-    private String iconLibrary;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

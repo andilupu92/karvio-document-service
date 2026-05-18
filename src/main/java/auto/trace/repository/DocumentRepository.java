@@ -6,5 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {
-    List<Document> findByCarId(Long carId);
+    List<Document> findByCarIdOrderByExpiryDateAsc(Long carId);
+
+    List<Document> findByUserIdOrderByExpiryDateAsc(Long userId);
+
+    boolean existsByCarId(Long carId);
+
+    void deleteByCarId(Long carId);
 }

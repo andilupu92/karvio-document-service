@@ -3,10 +3,11 @@ package auto.trace.dto.response;
 import java.time.LocalDate;
 
 public record DocumentResponse (Long id,
-                                Long documentCategoryId,
-                                String documentCategoryName,
-                                String documentCategoryIconName,
-                                String documentCategoryIconLibrary,
+                                Long documentTypeId,
+                                String documentTypeName,
+                                String documentTypeIconName,
                                 LocalDate expiryDate,
-                                long daysRemaining
+                                long daysRemaining,
+                                String carName,
+                                Long carId
 ){ }
