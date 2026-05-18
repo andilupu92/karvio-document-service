@@ -8,6 +8,7 @@ class AutoDocumentServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+        //tests
 	}
 
 }
