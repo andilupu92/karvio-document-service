@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="car_documents")
-public class Document {
+@Table(name="personal_documents")
+public class PersonalDocument {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +22,6 @@ public class Document {
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
-
-    @Column(name = "car_id", nullable = false)
-    private Long carId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "document_type_id", nullable = false)
