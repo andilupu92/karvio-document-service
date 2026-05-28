@@ -12,6 +12,8 @@ import auto.trace.exception.ResourceNotFoundException;
 import auto.trace.mapper.DocumentMapper;
 import auto.trace.repository.DocumentTypeRepository;
 import auto.trace.repository.DocumentRepository;
+import auto.trace.repository.ExpenseRepository;
+import auto.trace.repository.PersonalDocumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,8 @@ public class DocumentService {
     private final DocumentMapper documentMapper;
     private final ExpenseService expenseService;
     private final CarServiceClient carServiceClient;
-
+    private final ExpenseRepository expenseRepository;
+    private final PersonalDocumentRepository personalDocumentRepository;
 
     public List<DocumentResponse> getDocumentsFromCar(Long carId) {
         return documentMapper.toResponseList(documentRepository.findByCarIdOrderByExpiryDateAsc(carId));
@@ -123,6 +126,21 @@ public class DocumentService {
     public void deleteAllDocumentsByCar(Long carId) {
         if (documentRepository.existsByCarId(carId)) {
             documentRepository.deleteByCarId(carId);
+        }
+    }
+
+    @Transactional
+    public void deleteAllDocumentsAndExpensesByUser(Long userId) {
+        if (documentRepository.existsByUserId(userId)) {
+            documentRepository.deleteByUserId(userId);
+        }
+
+        if (expenseRepository.existsByUserId(userId)) {
+            expenseRepository.deleteByUserId(userId);
+        }
+
+        if (personalDocumentRepository.existsByUserId(userId)) {
+            personalDocumentRepository.deleteByUserId(userId);
         }
     }
 }

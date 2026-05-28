@@ -55,4 +55,10 @@ public class DocumentController {
         documentService.deleteAllDocumentsByCar(carId);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/byUser/{userId}")
+    public ResponseEntity<Void> deleteAllDocumentsAndExpensesByUser(@PathVariable Long userId) {
+        documentService.deleteAllDocumentsAndExpensesByUser(userId);
+        return ResponseEntity.noContent().build();
+    }
 }

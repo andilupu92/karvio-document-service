@@ -13,4 +13,8 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     boolean existsByCarId(Long carId);
 
     void deleteByCarId(Long carId);
+
+    boolean existsByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
 }

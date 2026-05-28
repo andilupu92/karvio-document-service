@@ -19,4 +19,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     boolean existsByCarId(Long carId);
 
     List<Expense> findByCarId(Long carId);
+
+    boolean existsByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
 }
