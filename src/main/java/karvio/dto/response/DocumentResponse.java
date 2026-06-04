@@ -1,0 +1,13 @@
+package karvio.dto.response;
+
+import java.time.LocalDate;
+
+public record DocumentResponse (Long id,
+                                Long documentTypeId,
+                                String documentTypeName,
+                                String documentTypeIconName,
+                                LocalDate expiryDate,
+                                long daysRemaining,
+                                String carName,
+                                Long carId
+){ }

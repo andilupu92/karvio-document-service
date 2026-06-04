@@ -1,4 +1,4 @@
-name: auto-document-service CI Pipeline
+name: karvio-document-service CI Pipeline
 
 on:
   push:

@@ -8,11 +8,11 @@
 		<version>3.5.10</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>auto.trace</groupId>
-	<artifactId>auto-document-service</artifactId>
+	<groupId>karvio</groupId>
+	<artifactId>karvio-document-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auto-document-service</name>
-	<description>auto-document-service</description>
+	<name>karvio-document-service</name>
+	<description>karvio-document-service</description>
 	<url/>
 	<licenses>
 		<license/>
