@@ -10,7 +10,6 @@ class KarvioDocumentServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
-        //tests
 	}
 
 }
