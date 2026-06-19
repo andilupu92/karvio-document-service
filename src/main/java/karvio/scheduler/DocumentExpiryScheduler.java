@@ -7,6 +7,7 @@ import karvio.repository.DocumentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +20,8 @@ public class DocumentExpiryScheduler {
     private final NotificationServiceClient notificationClient;
 
     // Every day at 08:00 AM
-    @Scheduled(cron = "0 30 15 * * ?")
+    @Scheduled(cron = "0 00 07 * * ?")
+    @Transactional
     public void checkDocumentExpirations() {
         LocalDate today = LocalDate.now();
 
@@ -31,7 +33,7 @@ public class DocumentExpiryScheduler {
     }
 
     private void processExpirations(LocalDate targetDate, String title, String bodyPrefix) {
-        List<Document> documents = documentRepository.findAllByExpiryDate(targetDate);
+        List<Document> documents = documentRepository.findByExpiryDateWithType(targetDate);
 
         for (Document doc : documents) {
             String customizedTitle = doc.getDocumentType().getName() + title;
@@ -43,9 +45,12 @@ public class DocumentExpiryScheduler {
             );
 
             try {
-                notificationClient.sendNotification(request);
+                notificationClient.sendNotification(request,
+                        "SYSTEM_SCHEDULER",
+                        "ROLE_SYSTEM",
+                        "Scheduler_Service");
             } catch (Exception e) {
-                System.err.println("Failed to send Feign notification for user: " + doc.getUserId());
+                System.err.println("Failed to send Feign notification for user: " + doc.getUserId() + e.getMessage());
             }
         }
     }

@@ -2,6 +2,8 @@ package karvio.repository;
 
 import karvio.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,4 +22,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     void deleteByUserId(Long userId);
 
     List<Document> findAllByExpiryDate(LocalDate expiryDate);
+
+    @Query("SELECT d FROM Document d JOIN FETCH d.documentType WHERE d.expiryDate = :date")
+    List<Document> findByExpiryDateWithType(@Param("date") LocalDate date);
 }
